@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+
+    >
+
+    <group android:checkableBehavior="single">
+
+    </group>
+
+    <item
+        android:id="@+id/all_labels"
+        android:title="@string/all_labels">
+        <menu>
+            <item
+                android:id="@+id/all_inboxes"
+                android:icon="@drawable/ic_baseline_all_inbox_24"
+                android:title="@string/all_inboxes" />
+            <item
+                android:id="@+id/starred"
+                android:icon="@drawable/ic_baseline_star_border_24"
+                android:title="@string/starred" />
+            <item
+                android:id="@+id/snoozed"
+                android:icon="@drawable/ic_baseline_access_time_24"
+                android:title="@string/snoozed" />
+            <item
+                android:id="@+id/sent"
+                android:icon="@drawable/ic_baseline_send_24"
+                android:title="@string/sent" />
+            <item
+                android:id="@+id/drafts"
+                android:icon="@drawable/ic_baseline_drafts_24"
+                android:title="@string/drafts" />
+            <item
+                android:id="@+id/all_mail"
+                android:icon="@drawable/ic_baseline_mail_outline_24"
+                android:title="@string/all_mail" />
+            <item
+                android:id="@+id/spam"
+                android:icon="@drawable/ic_baseline_warning_24"
+                android:title="@string/spam" />
+            <item
+                android:id="@+id/bin"
+                android:icon="@drawable/ic_baseline_delete_24"
+                android:title="@string/bin" />
+
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/google_apps"
+        android:title="@string/google_apps">
+        <menu>
+            <item
+                android:id="@+id/calendar"
+                android:icon="@drawable/ic_baseline_calendar_today_24"
+                android:title="@string/calendar" />
+            <item
+                android:id="@+id/contacts"
+                android:icon="@drawable/ic_baseline_contact_mail_24"
+                android:title="@string/contacts" />
+
+        </menu>
+    </item>
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/settings"
+                android:icon="@drawable/ic_baseline_settings_24"
+                android:title="@string/settings" />
+            <item
+                android:id="@+id/help_and_feedback"
+                android:icon="@drawable/ic_baseline_help_outline_24"
+                android:title="@string/help_and_feedback" />
+        </menu>
+    </item>
+
+
+</menu>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+
+    android:id="@+id/email_view"
+
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/wot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background">
+
+        <com.google.android.material.appbar.AppBarLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="@color/background"
+            android:elevation="0dp"
+            tools:targetApi="lollipop">
+
+            <com.google.android.material.appbar.MaterialToolbar
+
+                android:id="@+id/emailToolbar"
+                style="@style/Widget.Toolbar.Custom"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@drawable/toolbar_rounded"
+                android:elevation="4dp"
+                app:menu="@menu/email_top_app_bar"
+
+                app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+                tools:targetApi="lollipop">
+
+
+            </com.google.android.material.appbar.MaterialToolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <include
+        android:id="@+id/email_header"
+        layout="@layout/email_subject"
+        android:layout_below="@id/wot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:layout_below="@+id/email_header"
+        android:id="@+id/originToolbar"
+        style="@style/Widget.Toolbar.Custom"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/background"
+        android:elevation="4dp"
+        app:menu="@menu/email_origin"
+        app:navigationIcon="@drawable/userimage"
+        tools:targetApi="lollipop">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/address"
+                style="@style/email_origin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/email_origin"
+                />
+
+            <TextView
+                android:id="@+id/dateTextView"
+                android:layout_below="@id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/address"
+
+                android:layout_toRightOf="@+id/address" />
+
+        </RelativeLayout>
+
+
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <include
+        android:id="@+id/email_body"
+        style="@style/email_body"
+        layout="@layout/email_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/originToolbar"
+        android:layout_margin="20dp"
+        android:background="@color/background" />
+
+    <include
+        android:id="@+id/email_bottom"
+        layout="@layout/email_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/background" />
+
+
+</RelativeLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/new_in_gmail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/gmailIcon"
+        android:layout_width="169dp"
+        android:layout_height="169dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/gmail_icon" />
+
+
+    <TextView
+        android:id="@+id/newInGmailText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gmailIcon"
+        android:layout_marginTop="200dp"
+        android:gravity="center_horizontal"
+        android:text="New In Gmail"
+        android:textAlignment="center"
+        android:textColor="@color/background"
+        android:textSize="27dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newInGmailText"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
+        android:text="All the features you love with a fresh new look"
+        android:textAlignment="center"
+        android:textColor="@color/interfaceColor"
+        android:textSize="20dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/got_it"
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/white"
+        android:text="GOT IT"
+        android:textColor="@color/background" />
+
+</RelativeLayout>

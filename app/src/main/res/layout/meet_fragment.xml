@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/draweLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/background">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/meetToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:background="@color/background"
+                android:elevation="0dp"
+                tools:targetApi="lollipop">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/meetContent"
+                    style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@drawable/toolbar_rounded"
+                    android:elevation="4dp"
+                    app:navigationIcon="@drawable/ic_baseline_menu_24"
+                    tools:targetApi="lollipop">
+
+                    <TextView
+                        android:id="@+id/meetTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:text="@string/meet"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                    <ImageButton
+                        android:id="@+id/mainFragmentProfileIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+
+                        android:backgroundTint="@android:color/transparent"
+                        android:src="@drawable/userimage" />
+
+                </com.google.android.material.appbar.MaterialToolbar>
+
+                <LinearLayout
+                    android:id="@+id/meetButtons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/meetToolbar"
+                    android:layout_margin="20dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/newMeetingButton"
+                        style=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="69dp"
+                        android:layout_marginLeft="69dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/cacaAzul"
+                        android:text="@string/new_meeting"
+                        android:textColor="@color/interfaceColor" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/joinAMeetingButton"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="69dp"
+                        android:layout_marginRight="69dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/background"
+                        android:text="@string/join_a_meeting"
+                        android:textColor="@color/cacaAzul" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/meet_image"
+                    android:id="@+id/meetImage"/>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation_view"
+            style="@style/Widget.Custom.NavigationView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:clipToPadding="false"
+            app:headerLayout="@layout/header_navigation_drawer"
+            app:menu="@menu/navigation_drawer" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavMainMenu"
+            style="@style/bottomBarColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:menu="@menu/main_bottom_app_bar" />
+    </LinearLayout>
+
+
+</RelativeLayout>

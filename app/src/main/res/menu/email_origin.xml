@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/reply"
+        android:icon="@drawable/ic_baseline_reply_24"
+        android:title="@string/reply"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/replyAll"
+        android:title="@string/reply_all"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/forward"
+        android:title="@string/forward"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/addStar"
+        android:title="@string/add_star"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/print"
+        android:title="@string/print"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/markAsUnread"
+        android:title="@string/mark_as_important"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/block"
+        android:title="@string/help_and_feedback"
+        app:showAsAction="never" />
+
+</menu>

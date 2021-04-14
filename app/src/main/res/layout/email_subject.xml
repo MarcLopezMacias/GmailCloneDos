@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/subjectTextView"
+        style="@style/email_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/inboxLabel"
+        style="@style/email_header"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:text="@string/all_inboxes"
+        android:layout_toEndOf="@+id/subjectTextView"
+        android:layout_toRightOf="@+id/subjectTextView" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/favCheckBox"
+        style="@style/email_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:button="@android:drawable/btn_star"
+
+        />
+
+</RelativeLayout>

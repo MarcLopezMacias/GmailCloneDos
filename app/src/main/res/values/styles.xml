@@ -1,0 +1,140 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/interfaceColor</item>
+        <item name="colorPrimaryDark">@color/background</item>
+        <item name="colorAccent">@color/unreadColor</item>
+        <item name="android:fontFamily">@font/google_sans_medium</item>
+
+        <item name="colorStateNavigationItem">@color/menu_item_color_state</item>
+        <item name="colorNavigationItemNormal">@color/unreadColor</item>
+        <item name="colorNavigationItemSelected">@color/selectedColor</item>
+        <item name="colorNavigationItemBackgroundSelected">@color/don_juan</item>
+        <item name="colorNavigationItemBackgroundPressed">@color/readColor</item>
+        <item name="drawableNavigationItemBackground">@drawable/menu_item_background_color_state
+        </item>
+        <item name="android:listDivider">@color/unreadColor</item>
+
+        <item name="android:itemBackground">@color/background</item>
+
+
+
+    </style>
+
+    <!-- NAVIGATION DRAWER THEMES -->
+    <style name="Widget.Custom.NavigationView" parent="Widget.Design.NavigationView">
+        <item name="itemIconTint">?attr/colorStateNavigationItem</item>
+        <item name="itemTextAppearance">@style/TextAppearance.Custom.Navigation.Item</item>
+        <item name="itemTextColor">?attr/colorStateNavigationItem</item>
+        <item name="itemBackground">?attr/drawableNavigationItemBackground</item>
+        <item name="android:background">@color/background</item>
+    </style>
+
+    <style name="TextAppearance.Custom.Navigation.Item" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/unreadColor</item>
+        <item name="android:fontFamily">@font/google_sans_medium</item>
+        <item name="android:textSize">14dp</item>
+
+    </style>
+
+
+    <!-- OTHER STUFF -->
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+    </style>
+
+    <style name="email_origin">
+        <item name="android:textColor">@color/unreadColor</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="email_subject">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="email_body">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/unreadColor</item>
+    </style>
+
+    <style name="email_header" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:textColor">@color/unreadColor</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="email_bottom">
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:textColor">@color/readColor</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="interfaceItem">
+        <item name="color">@color/selectedColor</item>
+        <item name="tint">@color/selectedColor</item>
+        <item name="backgroundTint">@color/interfaceColor</item>
+        <item name="android:textColor">@color/interfaceColor</item>
+    </style>
+
+    <style name="bottomBarColor">
+        <item name="itemIconTint">@drawable/bottom_navigation_selector</item>
+        <item name="backgroundTint">@color/interfaceColor</item>
+        <item name="itemTextColor">@drawable/bottom_navigation_selector</item>
+    </style>
+
+
+    <style name="navigation_interface">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <!-- CUSTOM TOOLBAR -->
+    <style name="Widget.Toolbar.Custom" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="background">@string/back</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="subtitleTextColor">@color/material_on_primary_emphasis_medium</item>
+        <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Toolbar.Primary</item>
+    </style>
+
+    <!-- NOT RACIST -->
+    <style name="white">
+        <item name="android:textColor">@color/white</item>
+        <item name="color">@color/white</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="android:color">@color/white</item>
+        <item name="tint">@color/white</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="itemTextColor">@color/white</item>
+    </style>
+
+    <!-- INSIDE EMAIL, INTERFACE ELEMENTS -->
+    <style name="send_email_interface">
+        <item name="android:textColor">@color/readColor</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_margin">20dp</item>
+    </style>
+
+    <!-- INSIDE EMAIL, USER INPUTS -->
+    <style name="send_email_input">
+        <item name="android:textColor">@color/unreadColor</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:textColorHint">@color/readColor</item>
+    </style>
+
+    <!-- PERSONALISED OUTLINED BUTTON -->
+    <style name="Widget.Button.CustomOutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <item name="android:paddingLeft">@dimen/mtrl_btn_padding_left</item>
+    <item name="android:paddingRight">@dimen/mtrl_btn_padding_right</item>
+    <item name="strokeColor">@color/mtrl_btn_stroke_color_selector</item>
+    <item name="strokeWidth">@dimen/mtrl_btn_stroke_size</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+    </style>
+
+</resources>

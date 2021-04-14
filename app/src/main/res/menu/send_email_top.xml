@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/attach"
+        android:icon="@drawable/ic_baseline_attachment_24"
+        android:title="@string/archive"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/send"
+        android:icon="@drawable/ic_baseline_send_24"
+        android:title="@string/delete"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/schedule_send"
+        android:title="@string/schedule_send"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/add_from_contacts"
+        android:title="@string/add_from_contacts"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/confidential_mode"
+        android:title="@string/condifential_mode"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/save_draft"
+        android:title="@string/save_draft"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/discard"
+        android:title="@string/discard"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/settings"
+        android:title="@string/settings"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/help_and_feedback"
+        android:title="@string/move_to"
+        app:showAsAction="never" />
+
+</menu>

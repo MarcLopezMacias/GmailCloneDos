@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="attachementsColor">#dc4437</color>
+    <color name="linkColor">#94b4e5</color>
+
+
+    <!-- GOOGLE BRAND COLORS -->
+    <color name="background">#202124</color>
+    <color name="backgroundLight">#2E2F32</color>
+    <color name="unreadColor">#e8e9ec</color>
+    <color name="selectedColor">#e49085</color>
+    <color name="don_juan">#594645</color>
+    <color name="readColor">#606367</color>
+    <color name="interfaceColor">#3d4043</color>
+    <color name="white">#FFFFFF</color>
+    <color name="cacaAzul">#2196F3</color>
+
+
+</resources>

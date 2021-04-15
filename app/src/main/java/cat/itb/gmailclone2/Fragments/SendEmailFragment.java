@@ -46,10 +46,8 @@ import Model.Email;
 import Model.User;
 import cat.itb.gmailclone2.R;
 
-
 import static Resources.GetAccountEmails.getAccount;
 import static android.content.ContentValues.TAG;
-
 
 
 public class SendEmailFragment extends Fragment {
@@ -60,11 +58,10 @@ public class SendEmailFragment extends Fragment {
     TextInputEditText body;
     boolean changed = false;
     DatabaseReference imgref;
-    private FirebaseUser user;
-    private GoogleSignInClient mGoogleSignInClient;
-
     MaterialToolbar toolbar;
     ActionMenuItemView sendButton;
+    private FirebaseUser user;
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,7 +86,7 @@ public class SendEmailFragment extends Fragment {
         sendButton = v.findViewById(R.id.send);
         toolbar = v.findViewById(R.id.sendEmailToolbar);
 
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -153,7 +150,7 @@ public class SendEmailFragment extends Fragment {
                 Date currentTime = Calendar.getInstance().getTime();
                 Toast.makeText(getContext(), spinnerEmails.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
                 Toast.makeText(getContext(), user.getPhotoUrl() + "", Toast.LENGTH_LONG).show();
-                Email m = new Email(user.getPhotoUrl().toString(), user.getDisplayName(), to.getText().toString(), subject.getText().toString(), body.getText().toString(), currentTime, false, false);
+                Email m = new Email(user.getPhotoUrl().toString(), user.getDisplayName(), to.getText().toString(), subject.getText().toString(), body.getText().toString(), currentTime, false, false, "Received");
                 imgref.child("emails").child(key).setValue(m);
                 Navigation.findNavController(getActivity(), R.id.send_email_layout).navigate(R.id.mainFragmentRecyclerView);
             }

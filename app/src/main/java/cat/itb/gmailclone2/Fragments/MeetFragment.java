@@ -51,7 +51,6 @@ import static Resources.GetAccountEmails.getAccount;
 import static android.content.ContentValues.TAG;
 
 
-
 public class MeetFragment extends Fragment {
 
     private static final int RC_SIGN_IN = 123;

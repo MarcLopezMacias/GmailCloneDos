@@ -25,7 +25,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.ObservableSnapshotArray;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -54,12 +53,10 @@ import Model.Email;
 import Model.User;
 import Resources.CircleTransformation;
 import cat.itb.gmailclone2.Fragments.RecyclerView.EmailAdapter;
-
 import cat.itb.gmailclone2.R;
 
 import static Resources.GetAccountEmails.getAccount;
 import static android.content.ContentValues.TAG;
-
 
 
 public class MainFragment extends Fragment {

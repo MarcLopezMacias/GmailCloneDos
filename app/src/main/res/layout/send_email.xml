@@ -68,11 +68,11 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/subjectEditText"
-        android:hint="@string/subject"
         style="@style/send_email_input"
         android:layout_width="405dp"
         android:layout_height="38dp"
         android:layout_below="@id/toEditText"
+        android:hint="@string/subject"
 
         />
 

@@ -30,7 +30,7 @@
         android:backgroundTint="@color/cacaAzul"
         android:text="@string/learn_more"
         android:textAlignment="textStart"
-        android:textColor="#2C43C6"
+        android:textColor="@color/deepCacaAzul"
         android:gravity="start" />
 
     <com.google.android.material.button.MaterialButton
@@ -45,7 +45,8 @@
         android:textAllCaps="false"
         android:textColor="@color/cacaAzul"
         android:textSize="17sp"
-        android:gravity="start" />
+        android:gravity="start"
+        android:drawableStart="@drawable/ic_baseline_add_24" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/takeMeToGmail"

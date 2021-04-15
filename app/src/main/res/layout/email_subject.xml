@@ -14,9 +14,9 @@
         style="@style/email_header"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:text="@string/all_inboxes"
         android:layout_toEndOf="@+id/subjectTextView"
-        android:layout_toRightOf="@+id/subjectTextView" />
+        android:layout_toRightOf="@+id/subjectTextView"
+        android:text="@string/all_inboxes" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/favCheckBox"

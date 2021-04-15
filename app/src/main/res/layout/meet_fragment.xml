@@ -40,8 +40,8 @@
                         android:id="@+id/meetTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center"
                         android:layout_gravity="center"
+                        android:gravity="center"
                         android:text="@string/meet"
                         android:textAlignment="center"
                         android:textColor="@color/white"
@@ -92,10 +92,10 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/meetImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/meet_image"
-                    android:id="@+id/meetImage"/>
+                    android:src="@drawable/meet_image" />
 
             </com.google.android.material.appbar.AppBarLayout>
 
@@ -118,6 +118,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavMainMenu"
             style="@style/bottomBarColor"

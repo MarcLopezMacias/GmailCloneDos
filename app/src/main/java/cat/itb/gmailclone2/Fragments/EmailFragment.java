@@ -1,5 +1,6 @@
 package cat.itb.gmailclone2.Fragments;
 
+import android.graphics.Bitmap;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
@@ -21,32 +23,31 @@ import androidx.navigation.Navigation;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 import Model.Email;
-
+import Resources.CircleTransformation;
 import cat.itb.gmailclone2.R;
+
+import static cat.itb.gmailclone2.Fragments.MainFragment.user;
 
 public class EmailFragment extends Fragment {
 
     MaterialToolbar toolbar;
+    MaterialToolbar originToolbar;
 
     TextView subjectTextView;
     MaterialButton inboxLabel;
     MaterialCheckBox favCheckBox;
 
-    ImageView originProfilePicture;
     TextView originTextView;
     TextView dateTextView;
-    MaterialButton originReplyButton;
-    Button optionsButton;
 
     TextView bodyTextView;
-
-    View.OnClickListener replyButtonListener;
 
     MaterialButton replyButton;
     MaterialButton replyAllButton;
@@ -113,16 +114,16 @@ public class EmailFragment extends Fragment {
             }
         });
 
+        originToolbar = v.findViewById(R.id.originToolbar);
+        // PROFILE IMAGE PENDING
+
         subjectTextView = v.findViewById(R.id.subjectTextView);
         bodyTextView = v.findViewById(R.id.bodyTextView);
         inboxLabel = v.findViewById(R.id.inboxLabel);
         favCheckBox = v.findViewById(R.id.favCheckBox);
 
-        originProfilePicture = v.findViewById(R.id.profilePicture);
         originTextView = v.findViewById(R.id.address);
         dateTextView = v.findViewById(R.id.dateTextView);
-        originReplyButton = v.findViewById(R.id.replyButton);
-        optionsButton = v.findViewById(R.id.imageButton);
 
         replyButton = v.findViewById(R.id.replyButton);
         replyAllButton = v.findViewById(R.id.replyAllButton);

@@ -10,7 +10,7 @@
         android:layout_height="169dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        android:src="@drawable/gmail_icon" />
+        android:src="@drawable/gmail_logo" />
 
 
     <TextView

@@ -50,7 +50,7 @@
     <fragment
         android:id="@+id/meetFragment"
         android:name="cat.itb.gmailclone2.Fragments.MeetFragment"
-        android:label="MeetFragment" >
+        android:label="MeetFragment">
         <action
             android:id="@+id/action_meetFragment_to_recyclerView_email"
             app:destination="@id/mainFragmentRecyclerView" />

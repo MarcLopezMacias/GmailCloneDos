@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-
-    android:id="@+id/email_view"
-
-
     xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/email_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
@@ -49,18 +47,17 @@
     <include
         android:id="@+id/email_header"
         layout="@layout/email_subject"
-        android:layout_below="@id/wot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/background"
-        />
+        android:layout_below="@id/wot"
+        android:background="@color/background" />
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:layout_below="@+id/email_header"
         android:id="@+id/originToolbar"
         style="@style/Widget.Toolbar.Custom"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:layout_below="@+id/email_header"
         android:background="@color/background"
         android:elevation="4dp"
         app:menu="@menu/email_origin"
@@ -76,20 +73,18 @@
                 style="@style/email_origin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/email_origin"
-                />
+                android:hint="@string/email_origin" />
 
             <TextView
                 android:id="@+id/dateTextView"
-                android:layout_below="@id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/address"
                 android:layout_toEndOf="@+id/address"
 
                 android:layout_toRightOf="@+id/address" />
 
         </RelativeLayout>
-
 
 
     </com.google.android.material.appbar.MaterialToolbar>

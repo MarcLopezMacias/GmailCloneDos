@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -73,6 +74,11 @@ public class MainFragment extends Fragment {
     boolean in = false;
     private Button signIn;
     private GoogleSignInClient mGoogleSignInClient;
+    private SearchView searchView;
+
+
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,6 +111,11 @@ public class MainFragment extends Fragment {
         final FirebaseRecyclerOptions<Email> options = new FirebaseRecyclerOptions.Builder<Email>().setQuery(filter, Email.class).build();
 
 
+        // SearchView
+        searchView = v.findViewById(R.id.searchView);
+        searchView.setOn
+
+
         //Ir a escribir email
         writeEmail = v.findViewById(R.id.writeEmail);
         writeEmail.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +124,10 @@ public class MainFragment extends Fragment {
                 Navigation.findNavController(getActivity(), R.id.recyclerview).navigate(R.id.sendEmailFragment);
             }
         });
+
+
+
+
 
 
         //RecyclerView
@@ -286,6 +301,24 @@ public class MainFragment extends Fragment {
                     }
                 });
     }
+
+
+
+//    navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//        @Override
+//        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+//            int id=menuItem.getItemId();
+//            //it's possible to do more actions on several items, if there is a large amount of items I prefer switch(){case} instead of if()
+//            if (id==R.id.nav_home){
+//                Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
+//            }
+//            //This is for maintaining the behavior of the Navigation view
+//            NavigationUI.onNavDestinationSelected(menuItem,navController);
+//            //This is for closing the drawer after acting on it
+//            drawer.closeDrawer(GravityCompat.START);
+//            return true;
+//        }
+//    });
 
 
 }

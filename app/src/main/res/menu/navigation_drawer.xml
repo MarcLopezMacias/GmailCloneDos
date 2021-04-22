@@ -12,9 +12,9 @@
         android:title="@string/all_labels">
         <menu>
             <item
-                android:id="@+id/all_inboxes"
+                android:id="@+id/received"
                 android:icon="@drawable/ic_baseline_all_inbox_24"
-                android:title="@string/all_inboxes" />
+                android:title="@string/received" />
             <item
                 android:id="@+id/starred"
                 android:icon="@drawable/ic_baseline_star_border_24"

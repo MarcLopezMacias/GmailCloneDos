@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -80,6 +81,15 @@ public class EmailFragment extends Fragment {
                 });
                 favCheckBox.setChecked(email.isFavorite());
 
+                markAsUnreadButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        email.setRead(false);
+                        updateEmail(email);
+                        Toast.makeText(getContext(), "Marked as Unread", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
                 originTextView.setText(email.getOrigin());
 
 
@@ -105,6 +115,16 @@ public class EmailFragment extends Fragment {
                     public void onClick(View v) {
                         email.setInbox("Deleted");
                         updateEmail(email);
+                        Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                archiveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        email.setInbox("");
+                        updateEmail(email);
+                        Toast.makeText(getContext(), "Archived", Toast.LENGTH_SHORT).show();
                     }
                 });
 

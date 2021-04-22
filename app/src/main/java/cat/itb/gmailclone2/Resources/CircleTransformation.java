@@ -1,4 +1,4 @@
-package Resources;
+package cat.itb.gmailclone2.Resources;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

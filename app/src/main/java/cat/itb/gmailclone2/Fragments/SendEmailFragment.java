@@ -44,11 +44,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Calendar;
 import java.util.Date;
 
-import Model.Email;
-import Model.User;
+import cat.itb.gmailclone2.Model.Email;
+import cat.itb.gmailclone2.Model.User;
 import cat.itb.gmailclone2.R;
 
-import static Resources.GetAccountEmails.getAccount;
+import static cat.itb.gmailclone2.Resources.GetAccountEmails.getAccount;
 import static android.content.ContentValues.TAG;
 
 
@@ -153,7 +153,7 @@ public class SendEmailFragment extends Fragment {
                 Date currentTime = Calendar.getInstance().getTime();
                 Toast.makeText(getContext(), spinnerEmails.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
                 Toast.makeText(getContext(), user.getPhotoUrl() + "", Toast.LENGTH_LONG).show();
-                Email m = new Email(user.getPhotoUrl().toString(), user.getDisplayName(), to.getText().toString(), subject.getText().toString(), body.getText().toString(), currentTime, false, false, "Received");
+                Email m = new Email(user.getPhotoUrl().toString(), user.getDisplayName(), to.getText().toString(), subject.getText().toString(), body.getText().toString(), currentTime, false, false, "Received", key);
                 imgref.child("emails").child(key).setValue(m);
                 Navigation.findNavController(getActivity(), R.id.send_email_layout).navigate(R.id.mainFragmentRecyclerView);
             }

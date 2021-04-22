@@ -1,4 +1,4 @@
-package Model;
+package cat.itb.gmailclone2.Model;
 
 import java.io.Serializable;
 

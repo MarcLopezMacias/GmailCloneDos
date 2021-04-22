@@ -1,4 +1,4 @@
-package Model;
+package cat.itb.gmailclone2.Model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,9 +13,10 @@ public class Email implements Serializable {
     Date date;
     boolean favorite;
     boolean read;
+    String key;
 
 
-    public Email(String photoUrl, String origin, String to, String title, String body, Date date, boolean favorite, boolean read, String inbox) {
+    public Email(String photoUrl, String origin, String to, String title, String body, Date date, boolean favorite, boolean read, String inbox, String key) {
         this.photoUrl = photoUrl;
         this.origin = origin;
         this.to = to;
@@ -25,6 +26,7 @@ public class Email implements Serializable {
         this.favorite = favorite;
         this.read = read;
         this.inbox = inbox;
+        this.key = key;
     }
 
     public Email() {
@@ -105,5 +107,13 @@ public class Email implements Serializable {
 
     public void setInbox(String inbox) {
         this.inbox = inbox;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

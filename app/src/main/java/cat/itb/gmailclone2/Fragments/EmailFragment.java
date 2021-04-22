@@ -1,20 +1,16 @@
 package cat.itb.gmailclone2.Fragments;
 
-import android.graphics.Bitmap;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
@@ -23,17 +19,15 @@ import androidx.navigation.Navigation;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
-import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import Model.Email;
-import Resources.CircleTransformation;
+import cat.itb.gmailclone2.Model.Email;
 import cat.itb.gmailclone2.R;
 
-import static cat.itb.gmailclone2.Fragments.MainFragment.user;
+import static cat.itb.gmailclone2.Fragments.RecyclerView.EmailAdapter.updateEmail;
 
 public class EmailFragment extends Fragment {
 
@@ -69,13 +63,22 @@ public class EmailFragment extends Fragment {
 
                 Email email = (Email) result.getSerializable("email");
 
+
                 subjectTextView.setText(email.getTitle());
-                //    inboxLabel.setText(email.getInboxes().toString());
-                if (email.isFavorite()) {
-                    favCheckBox.setChecked(true);
-                } else {
-                    favCheckBox.setChecked(false);
-                }
+                inboxLabel.setText(email.getInbox());
+
+                favCheckBox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (email.isFavorite()) {
+                            email.setFavorite(false);
+                        } else {
+                            email.setFavorite(true);
+                        }
+                        updateEmail(email);
+                    }
+                });
+                favCheckBox.setChecked(email.isFavorite());
 
                 originTextView.setText(email.getOrigin());
 
@@ -97,6 +100,16 @@ public class EmailFragment extends Fragment {
 
                 bodyTextView.setText(email.getBody());
 
+                deleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        email.setInbox("Deleted");
+                        updateEmail(email);
+                    }
+                });
+
+                email.setRead(true);
+                updateEmail(email);
             }
         });
     }

@@ -15,6 +15,8 @@ public class Email implements Serializable {
     boolean read;
 
 
+
+
     public Email(String photoUrl, String origin, String to, String title, String body, Date date, boolean favorite, boolean read, String inbox) {
         this.photoUrl = photoUrl;
         this.origin = origin;
@@ -25,6 +27,7 @@ public class Email implements Serializable {
         this.favorite = favorite;
         this.read = read;
         this.inbox = inbox;
+
     }
 
     public Email() {
@@ -106,4 +109,6 @@ public class Email implements Serializable {
     public void setInbox(String inbox) {
         this.inbox = inbox;
     }
+
+
 }

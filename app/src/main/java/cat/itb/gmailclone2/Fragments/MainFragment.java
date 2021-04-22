@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,10 +51,14 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Model.Email;
 import Model.User;
 import Resources.CircleTransformation;
 import cat.itb.gmailclone2.Fragments.RecyclerView.EmailAdapter;
+import cat.itb.gmailclone2.Fragments.RecyclerView.EmailAdapterWIthoutFirebase;
 import cat.itb.gmailclone2.R;
 
 import static Resources.GetAccountEmails.getAccount;
@@ -69,12 +74,13 @@ public class MainFragment extends Fragment {
     RecyclerView recyclerView;
     DrawerLayout drawer;
     ImageButton profileIcon;
-    EmailAdapter adapter;
+    EmailAdapterWIthoutFirebase adapter;
     FloatingActionButton writeEmail;
     boolean in = false;
     private Button signIn;
     private GoogleSignInClient mGoogleSignInClient;
     private SearchView searchView;
+    public static List<Email> Emails = new ArrayList<>();
 
 
 
@@ -89,7 +95,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        adapter.startListening();
+
 
     }
 
@@ -111,9 +117,45 @@ public class MainFragment extends Fragment {
         final FirebaseRecyclerOptions<Email> options = new FirebaseRecyclerOptions.Builder<Email>().setQuery(filter, Email.class).build();
 
 
+
         // SearchView
         searchView = v.findViewById(R.id.searchView);
-        searchView.setOn
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot movieSnapshot : snapshot.getChildren()) {
+                            Email email = movieSnapshot.getValue(Email.class);
+                            System.out.println(email.getTitle());
+                            if (email!=null){
+                                if (email.getTitle().contains(newText)) {
+                                    Emails.add(email);
+                                }
+                            }
+
+                        }
+
+                        if (Emails!=null){
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                return false;
+            }
+        });
 
 
         //Ir a escribir email
@@ -132,7 +174,7 @@ public class MainFragment extends Fragment {
 
         //RecyclerView
         recyclerView = v.findViewById(R.id.recyclerview);
-        adapter = new EmailAdapter(options);
+        adapter = new EmailAdapterWIthoutFirebase();
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mLayoutManager.setReverseLayout(true);
         recyclerView.setLayoutManager(mLayoutManager);

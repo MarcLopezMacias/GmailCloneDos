@@ -1,4 +1,4 @@
-package Resources;
+package cat.itb.gmailclone2.Resources;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;

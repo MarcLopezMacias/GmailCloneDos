@@ -3,35 +3,49 @@ package cat.itb.gmailclone2.Fragments.RecyclerView;
 import android.graphics.Color;
 import android.icu.util.Calendar;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import Model.Email;
-import Resources.CircleTransformation;
+import cat.itb.gmailclone2.Fragments.MainFragment;
+import cat.itb.gmailclone2.Model.Email;
+import cat.itb.gmailclone2.Resources.CircleTransformation;
 import cat.itb.gmailclone2.R;
 
+import static cat.itb.gmailclone2.Fragments.MainFragment.myRef;
+import static cat.itb.gmailclone2.Fragments.MainFragment.user;
 import static cat.itb.gmailclone2.MainActivity.getContextOfApplication;
 
 
 public class EmailAdapter extends FirebaseRecyclerAdapter<Email, EmailAdapter.EmailViewHolder> implements View.OnClickListener {
 
     private View.OnClickListener listener;
+    DatabaseReference databaseReference;
+
 
 
     public EmailAdapter(FirebaseRecyclerOptions<Email> emails) {
@@ -127,10 +141,15 @@ public class EmailAdapter extends FirebaseRecyclerAdapter<Email, EmailAdapter.Em
             starItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    email.setFavorite(starItem.isChecked());
-                    notifyData();
+                    if (email.isFavorite()) {
+                        email.setFavorite(false);
+                    } else {
+                        email.setFavorite(true);
+                    }
+                    updateEmail(email);
                 }
             });
+            starItem.setChecked(email.isFavorite());
 
             if (email.isRead()) {
                 originItem.setTextColor(Color.GRAY);
@@ -146,5 +165,10 @@ public class EmailAdapter extends FirebaseRecyclerAdapter<Email, EmailAdapter.Em
         }
 
     }
+
+    public static void updateEmail(Email email) {
+        myRef.child("emails").child(email.getKey()).setValue(email);
+    }
+
 
 }

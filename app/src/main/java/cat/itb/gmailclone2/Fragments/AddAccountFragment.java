@@ -28,7 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import Model.User;
+import cat.itb.gmailclone2.Model.User;
 import cat.itb.gmailclone2.R;
 
 import static android.content.ContentValues.TAG;

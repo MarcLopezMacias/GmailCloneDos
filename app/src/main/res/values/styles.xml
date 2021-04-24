@@ -16,8 +16,8 @@
         </item>
         <item name="android:listDivider">@color/unreadColor</item>
 
-        <item name="android:itemBackground">@color/background</item>
-
+        <item name="android:textColor">@color/unreadColor</item>
+        <item name="android:itemBackground">@color/interfaceColor</item>
 
     </style>
 
@@ -91,10 +91,11 @@
 
     <!-- CUSTOM TOOLBAR -->
     <style name="Widget.Toolbar.Custom" parent="Widget.MaterialComponents.Toolbar.Primary">
-        <item name="background">@string/back</item>
+        <item name="background">@color/background</item>
         <item name="android:textColor">@color/white</item>
         <item name="subtitleTextColor">@color/material_on_primary_emphasis_medium</item>
         <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Toolbar.Primary</item>
+        <item name="android:colorBackground">@color/background</item>
     </style>
 
     <!-- NOT RACIST -->
@@ -135,5 +136,6 @@
         <item name="android:layout_marginEnd">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
     </style>
+
 
 </resources>

@@ -10,7 +10,7 @@
 
     <string name="open">OPEN</string>
     <string name="close">CLOSE</string>
-    <string name="all_inboxes">All inboxes</string>
+    <string name="received">Received</string>
     <string name="starred">Starred</string>
     <string name="snoozed">Snoozed</string>
     <string name="important">Important</string>

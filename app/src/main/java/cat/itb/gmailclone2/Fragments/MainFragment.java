@@ -10,20 +10,24 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,6 +42,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,11 +62,14 @@ import java.util.List;
 import Model.Email;
 import Model.User;
 import Resources.CircleTransformation;
+import cat.itb.gmailclone2.Model.Email;
+import cat.itb.gmailclone2.Model.User;
+import cat.itb.gmailclone2.Resources.CircleTransformation;
 import cat.itb.gmailclone2.Fragments.RecyclerView.EmailAdapter;
 import cat.itb.gmailclone2.Fragments.RecyclerView.EmailAdapterWIthoutFirebase;
 import cat.itb.gmailclone2.R;
 
-import static Resources.GetAccountEmails.getAccount;
+import static cat.itb.gmailclone2.Resources.GetAccountEmails.getAccount;
 import static android.content.ContentValues.TAG;
 
 
@@ -82,7 +90,7 @@ public class MainFragment extends Fragment {
     private SearchView searchView;
     public static List<Email> Emails = new ArrayList<>();
 
-
+    private NavigationView navigationView;
 
 
 
@@ -125,6 +133,7 @@ public class MainFragment extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
+        //searchView.setOn
 
             @Override
             public boolean onQueryTextChange(String newText) {
@@ -264,6 +273,60 @@ public class MainFragment extends Fragment {
         drawerToggle.syncState();
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        navigationView = v.findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                int id=menuItem.getItemId();
+                //it's possible to do more actions on several items, if there is a large amount of items I prefer switch(){case} instead of if()
+                switch (id) {
+                    case 2131296641:
+                        Toast.makeText(getContext(), "RECEIVED", Toast.LENGTH_SHORT).show();
+                        //filter = "Received";
+                        break;
+                    case 2131296716:
+                        Toast.makeText(getContext(), "STARRED", Toast.LENGTH_SHORT).show();
+                        //filter = "Starred";
+                        break;
+                    case 2131296701:
+                        Toast.makeText(getContext(), "SNOOZED", Toast.LENGTH_SHORT).show();
+                        //filter = "Snoozed";
+                        break;
+                    case 2131296686:
+                        Toast.makeText(getContext(), "SENT", Toast.LENGTH_SHORT).show();
+                        //filter = "Sent";
+                        break;
+                    case 2131296433:
+                        Toast.makeText(getContext(), "DRAFTS", Toast.LENGTH_SHORT).show();
+                        //filter = "Drafts";
+                        break;
+                    case 2131296345:
+                        Toast.makeText(getContext(), "All Mail", Toast.LENGTH_SHORT).show();
+                        //filter = "";
+                        break;
+                    case 2131296703:
+                        Toast.makeText(getContext(), "Spam", Toast.LENGTH_SHORT).show();
+                        //filter = "Spam";
+                        break;
+                    case 2131296361:
+                        Toast.makeText(getContext(), "Bin", Toast.LENGTH_SHORT).show();
+                        //filter = "Deleted";
+                        break;
+                    case 2131296371:
+                        Toast.makeText(getContext(), "Calendar", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2131296397:
+                        Toast.makeText(getContext(), "Contacts", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2131296687:
+                        Toast.makeText(getContext(), "Settings", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.emailFragment:
+                }
+
+                return true;
+            }
+        });
 
         return v;
     }
@@ -343,24 +406,6 @@ public class MainFragment extends Fragment {
                     }
                 });
     }
-
-
-
-//    navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-//        @Override
-//        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//            int id=menuItem.getItemId();
-//            //it's possible to do more actions on several items, if there is a large amount of items I prefer switch(){case} instead of if()
-//            if (id==R.id.nav_home){
-//                Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
-//            }
-//            //This is for maintaining the behavior of the Navigation view
-//            NavigationUI.onNavDestinationSelected(menuItem,navController);
-//            //This is for closing the drawer after acting on it
-//            drawer.closeDrawer(GravityCompat.START);
-//            return true;
-//        }
-//    });
 
 
 }

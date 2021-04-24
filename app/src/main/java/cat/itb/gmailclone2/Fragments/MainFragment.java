@@ -242,15 +242,23 @@ public class MainFragment extends Fragment {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
-
+                    int position = viewHolder.getAdapterPosition();
                 switch (direction){
                     case ItemTouchHelper.LEFT:
+                        deletedEmail = Emails.get(position);
+                        Emails.remove(position);
+                        adapter.notifyItemRemoved(position);
+                  //      myRef.child("emails").child(deletedEmail.getKey()).removeValue();
 
-                        deletedEmail = Emails.get(viewHolder.getAdapterPosition());
-                        Emails.remove(viewHolder.getAdapterPosition());
-                        adapter.notifyDataSetChanged();
-                        myRef.child("emails").child(deletedEmail.getKey()).removeValue();
-
+                        Snackbar.make(recyclerView, "Deleted Email "+deletedEmail.getTitle() , Snackbar.LENGTH_LONG)
+                                .setAction("Undo", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Emails.add(position,deletedEmail);
+                                        adapter.notifyItemInserted(position);
+                                    }
+                                }).show();
+                        break;
                     case ItemTouchHelper.RIGHT:
 
                         break;

@@ -85,9 +85,19 @@
 
                     <!-- Scrollable content -->
 
-                    <include
-                        android:id="@+id/include"
-                        layout="@layout/recycler_view" />
+                    <androidx.coordinatorlayout.widget.CoordinatorLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/coordinatorLayoutForSnack">
+
+
+                        <include
+                            android:id="@+id/include"
+                            layout="@layout/recycler_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
                 </androidx.core.widget.NestedScrollView>

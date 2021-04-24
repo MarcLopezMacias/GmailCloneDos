@@ -20,9 +20,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import Model.Email;
+import cat.itb.gmailclone2.Model.Email;
 import cat.itb.gmailclone2.R;
-import Resources.CircleTransformation;
+import cat.itb.gmailclone2.Resources.CircleTransformation;
+
 import static cat.itb.gmailclone2.MainActivity.*;
 
 import static cat.itb.gmailclone2.Fragments.MainFragment.Emails;

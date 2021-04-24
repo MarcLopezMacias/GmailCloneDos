@@ -30,6 +30,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.ObservableSnapshotArray;
@@ -59,9 +60,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import Model.Email;
-import Model.User;
-import Resources.CircleTransformation;
+
 import cat.itb.gmailclone2.Model.Email;
 import cat.itb.gmailclone2.Model.User;
 import cat.itb.gmailclone2.Resources.CircleTransformation;
@@ -89,7 +88,8 @@ public class MainFragment extends Fragment {
     private GoogleSignInClient mGoogleSignInClient;
     private SearchView searchView;
     public static List<Email> Emails = new ArrayList<>();
-
+    private SwipeRefreshLayout swipeRefreshLayout;
+    Query filter;
     private NavigationView navigationView;
 
 
@@ -120,17 +120,33 @@ public class MainFragment extends Fragment {
 
         user = mAuth.getCurrentUser();
 
-        Query filter = database.getReference().child("emails").orderByChild("to").equalTo(user.getEmail());
+       filter = database.getReference().child("emails").orderByChild("to").equalTo(user.getEmail());
 
-        final FirebaseRecyclerOptions<Email> options = new FirebaseRecyclerOptions.Builder<Email>().setQuery(filter, Email.class).build();
+    //    final FirebaseRecyclerOptions<Email> options = new FirebaseRecyclerOptions.Builder<Email>().setQuery(filter, Email.class).build();
+
+       swipeRefreshLayout = v.findViewById(R.id.swipeRefreshLayout);
 
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Esto se ejecuta cada vez que se realiza el gesto
+                swipeRefreshLayout.setRefreshing(true);
+
+                cargarDatos();
+
+
+            }
+        });
+
+        cargarDatos();
 
         // SearchView
         searchView = v.findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
                 return false;
             }
         //searchView.setOn
@@ -140,20 +156,32 @@ public class MainFragment extends Fragment {
                 filter.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Emails.clear();
                         for (DataSnapshot movieSnapshot : snapshot.getChildren()) {
+                            boolean not= false;
                             Email email = movieSnapshot.getValue(Email.class);
                             System.out.println(email.getTitle());
                             if (email!=null){
-                                if (email.getTitle().contains(newText)) {
+//                                for (int i = 0; i < Emails.size(); i++) {
+//                                    if (email.getTitle().contains(query) && Emails.get(i).getKey().equals(email.getKey())) {
+//                                        not = true;
+//                                    }else {
+//                                        not=false;
+//                                    }
+//                                }
+
+                                if (email.getTitle().toLowerCase().contains(newText)) {
                                     Emails.add(email);
+                                }else {
+                                    Emails.remove(email);
                                 }
+
                             }
-
                         }
-
                         if (Emails!=null){
 
                         }
+                        adapter.notifyDataSetChanged();
 
                     }
 
@@ -191,8 +219,8 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle b = new Bundle();
-                ObservableSnapshotArray<Email> mSnapshots = options.getSnapshots();
-                Email e = mSnapshots.get(recyclerView.getChildAdapterPosition(v));
+
+                Email e = Emails.get(recyclerView.getChildAdapterPosition(v));
                 b.putSerializable("email", e);
                 getParentFragmentManager().setFragmentResult("email", b);
                 Navigation.findNavController(getActivity(), R.id.recyclerview).navigate(R.id.emailFragment);
@@ -329,6 +357,43 @@ public class MainFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void cargarDatos() {
+        filter.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot movieSnapshot : snapshot.getChildren()) {
+                    Boolean areInArray = false;
+                    Email email = movieSnapshot.getValue(Email.class);
+                    System.out.println(email.getTitle());
+                    if (email!=null){
+                        for (int i = 0; i < Emails.size(); i++) {
+                            if (email.getKey().equals(Emails.get(i).getKey())){
+                                areInArray = true;
+                            }
+                        }
+                        if (!areInArray){
+                            Emails.add(email);
+                        }
+                        adapter.notifyDataSetChanged();
+                        areInArray= false;
+
+                    }
+                }
+                swipeRefreshLayout.setRefreshing(false);
+
+                if (Emails!=null){
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 

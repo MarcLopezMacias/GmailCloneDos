@@ -67,24 +67,35 @@
             </com.google.android.material.appbar.AppBarLayout>
 
 
-            <!-- Note: A RecyclerView can also be used -->
-            <androidx.core.widget.NestedScrollView
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/background"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                android:layout_marginTop="70dp"
 
-                <!-- Scrollable content -->
+                >
+                <!-- Note: A RecyclerView can also be used -->
 
-                <include
-                    android:id="@+id/include"
-                    layout="@layout/recycler_view" />
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/background"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                    <!-- Scrollable content -->
+
+                    <include
+                        android:id="@+id/include"
+                        layout="@layout/recycler_view" />
 
 
-            </androidx.core.widget.NestedScrollView>
+                </androidx.core.widget.NestedScrollView>
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navigation_view"
@@ -95,6 +106,7 @@
             android:clipToPadding="false"
             app:headerLayout="@layout/header_navigation_drawer"
             app:menu="@menu/navigation_drawer" />
+
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

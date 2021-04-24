@@ -28,7 +28,7 @@ import static cat.itb.gmailclone2.MainActivity.*;
 
 import static cat.itb.gmailclone2.Fragments.MainFragment.Emails;
 
-public class EmailAdapterWIthoutFirebase extends RecyclerView.Adapter< EmailAdapterWIthoutFirebase.ViewHolder>  implements View.OnClickListener{
+public class EmailAdapterWIthoutFirebase extends RecyclerView.Adapter< EmailAdapterWIthoutFirebase.ViewHolder>  implements View.OnClickListener {
 
     private View.OnClickListener listener;
 

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -44,6 +46,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -91,7 +95,7 @@ public class MainFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     Query filter;
     private NavigationView navigationView;
-
+     Email deletedEmail = null;
 
 
     @Override
@@ -126,7 +130,7 @@ public class MainFragment extends Fragment {
 
        swipeRefreshLayout = v.findViewById(R.id.swipeRefreshLayout);
 
-
+        // swipe para refrescar datos
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -139,6 +143,7 @@ public class MainFragment extends Fragment {
             }
         });
 
+        //Cargar datos del recycler view
         cargarDatos();
 
         // SearchView
@@ -226,6 +231,34 @@ public class MainFragment extends Fragment {
                 Navigation.findNavController(getActivity(), R.id.recyclerview).navigate(R.id.emailFragment);
             }
         });
+
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+
+                switch (direction){
+                    case ItemTouchHelper.LEFT:
+
+                        deletedEmail = Emails.get(viewHolder.getAdapterPosition());
+                        Emails.remove(viewHolder.getAdapterPosition());
+                        adapter.notifyDataSetChanged();
+                        myRef.child("emails").child(deletedEmail.getKey()).removeValue();
+
+                    case ItemTouchHelper.RIGHT:
+
+                        break;
+                }
+
+            }
+        }).attachToRecyclerView(recyclerView);
+
         recyclerView.setAdapter(adapter);
 
 

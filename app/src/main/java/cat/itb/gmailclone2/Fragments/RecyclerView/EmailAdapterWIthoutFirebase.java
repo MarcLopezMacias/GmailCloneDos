@@ -24,6 +24,7 @@ import cat.itb.gmailclone2.Model.Email;
 import cat.itb.gmailclone2.R;
 import cat.itb.gmailclone2.Resources.CircleTransformation;
 
+import static cat.itb.gmailclone2.Fragments.MainFragment.myRef;
 import static cat.itb.gmailclone2.MainActivity.*;
 
 import static cat.itb.gmailclone2.Fragments.MainFragment.Emails;
@@ -116,10 +117,15 @@ public class EmailAdapterWIthoutFirebase extends RecyclerView.Adapter< EmailAdap
             starItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    email.setFavorite(starItem.isChecked());
-
+                    if (email.isFavorite()) {
+                        email.setFavorite(false);
+                    } else {
+                        email.setFavorite(true);
+                    }
+                    updateEmail(email);
                 }
             });
+            starItem.setChecked(email.isFavorite());
 
             if (email.isRead()) {
                 originItem.setTextColor(Color.GRAY);
@@ -134,5 +140,8 @@ public class EmailAdapterWIthoutFirebase extends RecyclerView.Adapter< EmailAdap
 
         }
 
+    }
+    public static void updateEmail(Email email) {
+        myRef.child("emails").child(email.getKey()).setValue(email);
     }
 }

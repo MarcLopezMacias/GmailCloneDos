@@ -245,10 +245,12 @@ public class MainFragment extends Fragment {
                     int position = viewHolder.getAdapterPosition();
                 switch (direction){
                     case ItemTouchHelper.LEFT:
+
+                    case ItemTouchHelper.RIGHT:
                         deletedEmail = Emails.get(position);
                         Emails.remove(position);
                         adapter.notifyItemRemoved(position);
-                  //      myRef.child("emails").child(deletedEmail.getKey()).removeValue();
+                        //      myRef.child("emails").child(deletedEmail.getKey()).removeValue();
 
                         Snackbar.make(recyclerView, "Deleted Email "+deletedEmail.getTitle() , Snackbar.LENGTH_LONG)
                                 .setAction("Undo", new View.OnClickListener() {
@@ -258,8 +260,6 @@ public class MainFragment extends Fragment {
                                         adapter.notifyItemInserted(position);
                                     }
                                 }).show();
-                        break;
-                    case ItemTouchHelper.RIGHT:
 
                         break;
                 }
@@ -351,35 +351,43 @@ public class MainFragment extends Fragment {
                 switch (id) {
                     case 2131296641:
                         Toast.makeText(getContext(), "RECEIVED", Toast.LENGTH_SHORT).show();
+                        filtradoPorInbox("Received");
                         //filter = "Received";
                         break;
                     case 2131296716:
                         Toast.makeText(getContext(), "STARRED", Toast.LENGTH_SHORT).show();
                         //filter = "Starred";
+                        filtradoPorInbox("Starred");
                         break;
                     case 2131296701:
                         Toast.makeText(getContext(), "SNOOZED", Toast.LENGTH_SHORT).show();
                         //filter = "Snoozed";
+                        filtradoPorInbox("Snoozed");
                         break;
                     case 2131296686:
                         Toast.makeText(getContext(), "SENT", Toast.LENGTH_SHORT).show();
                         //filter = "Sent";
+                        filtradoPorInbox("Sent");
                         break;
                     case 2131296433:
                         Toast.makeText(getContext(), "DRAFTS", Toast.LENGTH_SHORT).show();
                         //filter = "Drafts";
+                        filtradoPorInbox("Drafts");
                         break;
                     case 2131296345:
                         Toast.makeText(getContext(), "All Mail", Toast.LENGTH_SHORT).show();
                         //filter = "";
+                        cargarDatos();
                         break;
                     case 2131296703:
                         Toast.makeText(getContext(), "Spam", Toast.LENGTH_SHORT).show();
                         //filter = "Spam";
+                        filtradoPorInbox("Spam");
                         break;
                     case 2131296361:
                         Toast.makeText(getContext(), "Bin", Toast.LENGTH_SHORT).show();
                         //filter = "Deleted";
+                        filtradoPorInbox("Deleted");
                         break;
                     case 2131296371:
                         Toast.makeText(getContext(), "Calendar", Toast.LENGTH_SHORT).show();
@@ -427,6 +435,46 @@ public class MainFragment extends Fragment {
                 if (Emails!=null){
 
                 }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void filtradoPorInbox(String inbox){
+        filter.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Emails.clear();
+                for (DataSnapshot movieSnapshot : snapshot.getChildren()) {
+                    boolean not= false;
+                    Email email = movieSnapshot.getValue(Email.class);
+             //       System.out.println(email.getTitle());
+                    if (email!=null){
+//                                for (int i = 0; i < Emails.size(); i++) {
+//                                    if (email.getTitle().contains(query) && Emails.get(i).getKey().equals(email.getKey())) {
+//                                        not = true;
+//                                    }else {
+//                                        not=false;
+//                                    }
+//                                }
+
+                        if (email.getInbox().toLowerCase().equals(inbox.toLowerCase())) {
+                            Emails.add(email);
+                        }else {
+                            Emails.remove(email);
+                        }
+
+                    }
+                }
+                if (Emails!=null){
+
+                }
+                adapter.notifyDataSetChanged();
 
             }
 

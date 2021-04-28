@@ -351,6 +351,7 @@ public class MainFragment extends Fragment {
                 switch (id) {
                     case 2131296641:
                         Toast.makeText(getContext(), "RECEIVED", Toast.LENGTH_SHORT).show();
+
                         //filter = "Received";
                         break;
                     case 2131296716:
@@ -419,15 +420,12 @@ public class MainFragment extends Fragment {
                         }
                         adapter.notifyDataSetChanged();
                         areInArray= false;
-
                     }
                 }
                 swipeRefreshLayout.setRefreshing(false);
-
                 if (Emails!=null){
 
                 }
-
             }
 
             @Override

@@ -105,8 +105,6 @@ public class EmailFragment extends Fragment {
                     date = notToday.format(mailDate);
                 }
                 dateTextView.setText(date);
-                //originReplyButton.setOnClickListener(replyButtonListener);
-
 
                 bodyTextView.setText(email.getBody());
 
@@ -130,6 +128,13 @@ public class EmailFragment extends Fragment {
 
                 email.setRead(true);
                 updateEmail(email);
+
+                replyButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Navigation.findNavController()
+                    }
+                });
             }
         });
     }

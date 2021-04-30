@@ -132,7 +132,7 @@ public class EmailFragment extends Fragment {
                 replyButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Navigation.findNavController()
+                        Navigation.findNavController(getActivity(), R.id.emailFragment).navigate(R.id.sendEmailFragment);
                     }
                 });
             }

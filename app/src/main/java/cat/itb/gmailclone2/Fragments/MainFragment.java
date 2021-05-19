@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -27,8 +29,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.ObservableSnapshotArray;
@@ -42,6 +46,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,10 +61,15 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 import cat.itb.gmailclone2.Model.Email;
 import cat.itb.gmailclone2.Model.User;
 import cat.itb.gmailclone2.Resources.CircleTransformation;
 import cat.itb.gmailclone2.Fragments.RecyclerView.EmailAdapter;
+import cat.itb.gmailclone2.Fragments.RecyclerView.EmailAdapterWIthoutFirebase;
 import cat.itb.gmailclone2.R;
 
 import static cat.itb.gmailclone2.Resources.GetAccountEmails.getAccount;
@@ -74,15 +85,17 @@ public class MainFragment extends Fragment {
     RecyclerView recyclerView;
     DrawerLayout drawer;
     ImageButton profileIcon;
-    EmailAdapter adapter;
+    EmailAdapterWIthoutFirebase adapter;
     FloatingActionButton writeEmail;
     boolean in = false;
     private Button signIn;
     private GoogleSignInClient mGoogleSignInClient;
     private SearchView searchView;
-
+    public static List<Email> Emails = new ArrayList<>();
+    private SwipeRefreshLayout swipeRefreshLayout;
+    Query filter;
     private NavigationView navigationView;
-
+     Email deletedEmail = null;
 
 
     @Override
@@ -94,7 +107,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        adapter.startListening();
+
 
     }
 
@@ -111,14 +124,80 @@ public class MainFragment extends Fragment {
 
         user = mAuth.getCurrentUser();
 
-        Query filter = database.getReference().child("emails").orderByChild("to").equalTo(user.getEmail());
+       filter = database.getReference().child("emails").orderByChild("to").equalTo(user.getEmail());
 
-        final FirebaseRecyclerOptions<Email> options = new FirebaseRecyclerOptions.Builder<Email>().setQuery(filter, Email.class).build();
+    //    final FirebaseRecyclerOptions<Email> options = new FirebaseRecyclerOptions.Builder<Email>().setQuery(filter, Email.class).build();
 
+       swipeRefreshLayout = v.findViewById(R.id.swipeRefreshLayout);
+
+        // swipe para refrescar datos
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Esto se ejecuta cada vez que se realiza el gesto
+                swipeRefreshLayout.setRefreshing(true);
+
+                cargarDatos();
+
+
+            }
+        });
+
+        //Cargar datos del recycler view
+        cargarDatos();
 
         // SearchView
         searchView = v.findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
         //searchView.setOn
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Emails.clear();
+                        for (DataSnapshot movieSnapshot : snapshot.getChildren()) {
+                            boolean not= false;
+                            Email email = movieSnapshot.getValue(Email.class);
+                            System.out.println(email.getTitle());
+                            if (email!=null){
+//                                for (int i = 0; i < Emails.size(); i++) {
+//                                    if (email.getTitle().contains(query) && Emails.get(i).getKey().equals(email.getKey())) {
+//                                        not = true;
+//                                    }else {
+//                                        not=false;
+//                                    }
+//                                }
+
+                                if (email.getTitle().toLowerCase().contains(newText)) {
+                                    Emails.add(email);
+                                }else {
+                                    Emails.remove(email);
+                                }
+
+                            }
+                        }
+                        if (Emails!=null){
+
+                        }
+                        adapter.notifyDataSetChanged();
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                return false;
+            }
+        });
 
 
         //Ir a escribir email
@@ -137,7 +216,7 @@ public class MainFragment extends Fragment {
 
         //RecyclerView
         recyclerView = v.findViewById(R.id.recyclerview);
-        adapter = new EmailAdapter(options);
+        adapter = new EmailAdapterWIthoutFirebase();
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mLayoutManager.setReverseLayout(true);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -145,13 +224,49 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle b = new Bundle();
-                ObservableSnapshotArray<Email> mSnapshots = options.getSnapshots();
-                Email e = mSnapshots.get(recyclerView.getChildAdapterPosition(v));
+
+                Email e = Emails.get(recyclerView.getChildAdapterPosition(v));
                 b.putSerializable("email", e);
                 getParentFragmentManager().setFragmentResult("email", b);
                 Navigation.findNavController(getActivity(), R.id.recyclerview).navigate(R.id.emailFragment);
             }
         });
+
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+                    int position = viewHolder.getAdapterPosition();
+                switch (direction){
+                    case ItemTouchHelper.LEFT:
+                        deletedEmail = Emails.get(position);
+                        Emails.remove(position);
+                        adapter.notifyItemRemoved(position);
+                  //      myRef.child("emails").child(deletedEmail.getKey()).removeValue();
+
+                        Snackbar.make(recyclerView, "Deleted Email "+deletedEmail.getTitle() , Snackbar.LENGTH_LONG)
+                                .setAction("Undo", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Emails.add(position,deletedEmail);
+                                        adapter.notifyItemInserted(position);
+                                    }
+                                }).show();
+                        break;
+                    case ItemTouchHelper.RIGHT:
+
+                        break;
+                }
+
+            }
+        }).attachToRecyclerView(recyclerView);
+
         recyclerView.setAdapter(adapter);
 
 
@@ -236,6 +351,7 @@ public class MainFragment extends Fragment {
                 switch (id) {
                     case 2131296641:
                         Toast.makeText(getContext(), "RECEIVED", Toast.LENGTH_SHORT).show();
+
                         //filter = "Received";
                         break;
                     case 2131296716:
@@ -283,6 +399,40 @@ public class MainFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void cargarDatos() {
+        filter.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot movieSnapshot : snapshot.getChildren()) {
+                    Boolean areInArray = false;
+                    Email email = movieSnapshot.getValue(Email.class);
+                    System.out.println(email.getTitle());
+                    if (email!=null){
+                        for (int i = 0; i < Emails.size(); i++) {
+                            if (email.getKey().equals(Emails.get(i).getKey())){
+                                areInArray = true;
+                            }
+                        }
+                        if (!areInArray){
+                            Emails.add(email);
+                        }
+                        adapter.notifyDataSetChanged();
+                        areInArray= false;
+                    }
+                }
+                swipeRefreshLayout.setRefreshing(false);
+                if (Emails!=null){
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 
